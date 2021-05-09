@@ -60,7 +60,6 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
-  width: 280px;
   border-color: cyan;
 }
 
@@ -75,7 +74,6 @@
 .Classify .classify-panel-header {
   margin-top: 10px;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.03);
   color: aqua;
   border-color: rgba(0, 0, 0, 0.125);
   background-color: #323464;
@@ -97,7 +95,6 @@
   padding-top: 12px;
   padding-bottom: 12px;
 }
-
 .Classify .panel-arrow {
   float: right;
 }
@@ -111,7 +108,10 @@
   font-size: 36px;
   font-weight: 600;
 }
-
+video {
+  width: 110%    !important;
+  height: 280px   !important;
+}
 .tabs {
   color: aqua;
 }

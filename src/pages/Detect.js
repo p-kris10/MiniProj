@@ -7,6 +7,7 @@ import Cropper  from 'react-cropper';
 import * as tf from '@tensorflow/tfjs';
 import LoadButton from '../components/LoadButton';
 import { MODEL_CLASSES } from '../model/classes';
+import { openDB } from 'idb';
 import config from '../config';
 import './Detect.css';
 import 'cropperjs/dist/cropper.css';
@@ -17,6 +18,9 @@ const IMAGE_SIZE = 224;
 const CANVAS_SIZE = 224;
 const TOPK_PREDICTIONS = 5;
 
+const INDEXEDDB_DB = 'tensorflowjs';
+const INDEXEDDB_STORE = 'tree_model_info_store';
+const INDEXEDDB_KEY = 'tree_web-model';
 export default class Classify extends Component {
 
   constructor(props) {
@@ -41,18 +45,54 @@ export default class Classify extends Component {
   }
 
   async componentDidMount() {
-    
-    // load model
-    this.model = await tf.loadLayersModel(MODEL_PATH);
-    
+    if (('indexedDB' in window)) {
+      try {
+        this.model = await tf.loadLayersModel('indexeddb://' + INDEXEDDB_KEY);
+
+        try {
+          const db = await openDB(INDEXEDDB_DB, 1, );
+          const item = await db.transaction(INDEXEDDB_STORE)
+                               .objectStore(INDEXEDDB_STORE)
+                               .get(INDEXEDDB_KEY);
+          const dateSaved = new Date(item.modelArtifactsInfo.dateSaved);
+          await this.getModelInfo();
+          console.log(this.modelLastUpdated);
+          if (!this.modelLastUpdated  || dateSaved >= new Date(this.modelLastUpdated).getTime()) {
+            console.log('Using saved model');
+          }
+          else {
+            this.setState({
+              modelUpdateAvailable: true,
+              showModelUpdateAlert: true,
+            });
+          }
+
+        }
+        catch (error) {
+          console.warn(error);
+          console.warn('Could not retrieve when model was saved.');
+        }
+
+      }
+      catch (error) {
+        console.log('Not found in IndexedDB. Loading and saving...');
+        console.log(error);
+        this.model = await tf.loadLayersModel(MODEL_PATH);
+        await this.model.save('indexeddb://' + INDEXEDDB_KEY);
+      }
+    }
+    else {
+      console.warn('IndexedDB not supported.');
+      this.model = await tf.loadLayersModel(MODEL_PATH);
+    }
 
     this.setState({ modelLoaded: true });
     this.initWebcam();
 
-   
     let prediction = tf.tidy(() => this.model.predict(tf.zeros([1, IMAGE_SIZE, IMAGE_SIZE, 3])));
     prediction.dispose();
   }
+  
 
   async componentWillUnmount() {
     if (this.webcam) {
@@ -110,8 +150,16 @@ export default class Classify extends Component {
   }
 
   updateModel = async () => {
-   //code to update saved model if available
-   console.log('to-be-filled');
+    console.log('Updating the model: ' + INDEXEDDB_KEY);
+    this.setState({ isDownloadingModel: true });
+    this.model = await tf.loadLayersModel(MODEL_PATH);
+    await this.model.save('indexeddb://' + INDEXEDDB_KEY);
+    this.setState({
+      isDownloadingModel: false,
+      modelUpdateAvailable: false,
+      showModelUpdateAlert: false,
+      showModelUpdateSuccess: true
+    });
   }
 
   classifyLocalImage = async () => {
@@ -315,8 +363,7 @@ export default class Classify extends Component {
                 </div>
                 <div className="webcam-box-outer">
                   <div className="webcam-box-inner">
-                    <video ref="webcam" autoPlay playsInline muted id="webcam"
-                           width="448" height="448">
+                    <video ref="webcam" autoPlay playsInline muted id="webcam">
                     </video>
                   </div>
                 </div>
