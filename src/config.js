@@ -1,5 +1,5 @@
 const config =  {
-  API_ENDPOINT: 'http://localhost:5000/api'
+  API_ENDPOINT: 'https://dis-detector.mybluemix.net/api'
 };
 
 export default config;

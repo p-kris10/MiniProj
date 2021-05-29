@@ -1,0 +1,8 @@
+---
+applications:
+ - name: DisDetector
+   memory: 512M
+   disk_quota: 2048M
+   routes:
+   - route: dis-detector.mybluemix.net
+   command: npm run start-prod
