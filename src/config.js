@@ -1,5 +1,5 @@
 const config =  {
-  API_ENDPOINT: 'https://dis-detector.mybluemix.net/api'
+  API_ENDPOINT: 'https://disdetector.herokuapp.com/api'
 };
 
 export default config;
