@@ -104,7 +104,7 @@ export default class Classify extends Component {
       this.model.dispose();
     }
     catch (e) {
-      console.log(e);
+      //console.log(e);
     }
   }
 
