@@ -21,7 +21,7 @@ const TOPK_PREDICTIONS = 5;
 const INDEXEDDB_DB = 'tensorflowjs';
 const INDEXEDDB_STORE = 'tree_model_info_store';
 const INDEXEDDB_KEY = 'tree_web-model';
-export default class Classify extends Component {
+export default class Detect extends Component {
 
   constructor(props) {
     super(props);
@@ -308,7 +308,7 @@ export default class Classify extends Component {
           aria-controls="photo-selection-pane"
           aria-expanded={this.state.photoSettingsOpen}
           >
-          Take or Select a Photo to Classify
+          Take or Select a Photo to Detect
             <span className='panel-arrow'>
             { this.state.photoSettingsOpen
               ? <FaChevronDown />
@@ -374,8 +374,8 @@ export default class Classify extends Component {
                     size="lg"
                     onClick={this.classifyWebcamImage}
                     isLoading={this.state.isClassifying}
-                    text="Classify"
-                    loadingText="Classifying..."
+                    text="Detect"
+                    loadingText="Detecting the Disease.."
                   />
                 </div>
               </Tab>
