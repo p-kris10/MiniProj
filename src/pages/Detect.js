@@ -21,7 +21,7 @@ const TOPK_PREDICTIONS = 5;
 const INDEXEDDB_DB = 'tensorflowjs';
 const INDEXEDDB_STORE = 'tree_model_info_store';
 const INDEXEDDB_KEY = 'tree_web-model';
-export default class Detect extends Component {
+export default class Classify extends Component {
 
   constructor(props) {
     super(props);
