@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './database.css';
+import './Database.css';
 
 export default class Home extends Component {
   render() {
