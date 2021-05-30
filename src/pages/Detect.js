@@ -296,7 +296,7 @@ export default class Classify extends Component {
           <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
           </Spinner>
-          {' '}<span className="loading-model-text">Loading Model</span>
+          {' '}<span className="loading-model-text">Downloading Model</span>
         </Fragment>
       }
 
