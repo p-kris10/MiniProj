@@ -45,6 +45,7 @@ export default class Classify extends Component {
   }
 
   async componentDidMount() {
+    console.log("testing CI");
     if (('indexedDB' in window)) {
       try {
         this.model = await tf.loadLayersModel('indexeddb://' + INDEXEDDB_KEY);
