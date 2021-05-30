@@ -11,7 +11,7 @@ const routing = ({ childProps }) =>
     <Route path="/" exact component={Detect} props={childProps} />
     <Route path="/about" exact component={About} props={childProps} />
     <Route path="/contact" exact component={Contact} props={childProps} />
-    <Route path="/database" exact component={database} props={childProps} />
+    <Route path="/database" exact component={Database} props={childProps} />
     <Route component={NotFound} />
   </Switch>;
 export default routing;
