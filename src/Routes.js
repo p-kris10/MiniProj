@@ -4,11 +4,7 @@ import About from './pages/About';
 import Detect from './pages/Detect';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
-<<<<<<< HEAD
 import Database from './pages/Database';
-=======
-import database from './pages/database';
->>>>>>> cc5574e0f4098e69db19f8be0cb7465e9ab68df7
 
 const routing = ({ childProps }) =>
   <Switch>
