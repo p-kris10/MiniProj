@@ -4,7 +4,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import reportWebVitals from './reportWebVitals';
 
 class Index extends Component {
   state = {
@@ -15,7 +16,7 @@ class Index extends Component {
     const config = {
       onUpdate: this.handleUpdate,
     };
-  serviceWorker.register(config);
+    serviceWorkerRegistration.register();
   }
   render() {
     return (
@@ -33,5 +34,5 @@ class Index extends Component {
     this.setState({ updateAvailable: true});
   }
 }
-
+reportWebVitals();
 ReactDOM.render(<Index />, document.getElementById('root'));
