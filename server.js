@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors());
-
+console.log("testing CI");
 app.get('/api/model_info', (req, res) => {
   const date = fs.readFileSync('model_info.txt', 'utf8');
   return res.status(200).json({
