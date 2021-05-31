@@ -410,8 +410,8 @@ export default class Classify extends Component {
                         disabled={!this.state.filename}
                         onClick={this.classifyLocalImage}
                         isLoading={this.state.isClassifying}
-                        text="Classify"
-                        loadingText="Classifying..."
+                        text="Detect"
+                        loadingText="Detecting the Disease.."
                       />
                     </div>
                   </Fragment>
